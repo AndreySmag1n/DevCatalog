@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DevCatalog.Application\DevCatalog.Application.csproj" />
+      <ProjectReference Include="..\DevCatalog.Contracts\DevCatalog.Contracts.csproj" />
+      <ProjectReference Include="..\DevCatalog.Domain\DevCatalog.Domain.csproj" />
+      <ProjectReference Include="..\DevCatalog.Presentation\DevCatalog.Presentation.csproj" />
+    </ItemGroup>
+
+</Project>
