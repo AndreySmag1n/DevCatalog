@@ -5,11 +5,13 @@ namespace DevCatalog.Domain.Entities;
 
 public class Position
 {
-    private Position(PositionName name, PositionDescription description)
+    private List<Department> _departments = [];
+    private Position(PositionName name, PositionDescription description, IEnumerable<Department> departments)
     {
         Id = Guid.NewGuid();
         Name = name;
         Description = description;
+        _departments = departments.ToList();
     }
     
     public Guid Id { get; private set; }
@@ -24,8 +26,8 @@ public class Position
     
     public DateTime UpdatedAt { get; private set; }
 
-    public static Result<Position> CreatePosition(PositionName name, PositionDescription description)
+    public static Result<Position> CreatePosition(PositionName name, PositionDescription description, IEnumerable<Department> departments)
     {
-        return new Position(name, description);
+        return new Position(name, description, departments);
     }
 }

@@ -5,12 +5,14 @@ namespace DevCatalog.Domain.Entities;
 
 public class Location
 {
-    private Location(LocationName name, LocationAddress address, LocationTimezone timezone)
+    private List<Department> _departments = [];
+    private Location(LocationName name, LocationAddress address, LocationTimezone timezone, IEnumerable<Department> departments)
     {
         Id = Guid.NewGuid();
         Name = name;
         Address = address;
         Timezone = timezone;
+        _departments = departments.ToList();
     }
     
     public Guid Id { get; private set; }
@@ -23,10 +25,15 @@ public class Location
     public DateTime CreatedAt { get; private set; }
     
     public DateTime UpdatedAt { get; private set; }
+    public IReadOnlyList<Department> Departments => _departments;
 
     
-    public static Result<Location> CreateLocation(LocationName name, LocationAddress address, LocationTimezone timezone)
+    public static Result<Location> CreateLocation(
+        LocationName name, 
+        LocationAddress address, 
+        LocationTimezone timezone, 
+        IEnumerable<Department> departments)
     {
-        return new Location(name, address, timezone);
+        return new Location(name, address, timezone, departments);
     }
 }
