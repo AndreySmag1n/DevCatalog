@@ -7,8 +7,8 @@ namespace DevCatalog.Domain.Entities;
 public class Department
 {
     private List<Department> _children = [];
-    private List<Location> _locations = [];
-    private List<Position> _positions = [];
+    private List<DepartmentLocation> _locations = [];
+    private List<DepartmentPosition> _positions = [];
     
     private Department(
         DepartmentName name, 
@@ -17,8 +17,8 @@ public class Department
         Department? parent, 
         short depth,
         IEnumerable<Department> children,
-        IEnumerable<Location> locations,
-        IEnumerable<Position> positions)
+        IEnumerable<DepartmentLocation> departmentLocations,
+        IEnumerable<DepartmentPosition> departmentPositions)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -27,8 +27,8 @@ public class Department
         Identifier = identifier;
         Depth = depth;
         _children = children.ToList();
-        _locations = locations.ToList();
-        _positions = positions.ToList();
+        _locations = departmentLocations.ToList();
+        _positions = departmentPositions.ToList();
     }
     
     public Guid Id { get; private set; }
@@ -46,8 +46,8 @@ public class Department
     
     public DateTime UpdatedAt { get; private set; }
     public IReadOnlyList<Department> Children => _children;
-    public IReadOnlyList<Location> Locations => _locations;
-    public IReadOnlyList<Position> Positions => _positions;
+    public IReadOnlyList<DepartmentLocation> Locations => _locations;
+    public IReadOnlyList<DepartmentPosition> Positions => _positions;
     
     public static Result<Department> CreateDepartment(
         DepartmentName name, 
@@ -56,8 +56,8 @@ public class Department
         Department? parent, 
         short depth,
         IEnumerable<Department> children,
-        IEnumerable<Location> locations,
-        IEnumerable<Position> positions)
+        IEnumerable<DepartmentLocation> locations,
+        IEnumerable<DepartmentPosition> positions)
     {
         if (depth < 1)    
         {
