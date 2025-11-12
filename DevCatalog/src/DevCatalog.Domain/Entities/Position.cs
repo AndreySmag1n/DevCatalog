@@ -5,13 +5,16 @@ namespace DevCatalog.Domain.Entities;
 
 public class Position
 {
-    private List<Department> _departments = [];
-    private Position(PositionName name, PositionDescription description, IEnumerable<Department> departments)
+    private List<DepartmentPosition> _departmentPositions = [];
+    private Position(
+        PositionName name, 
+        PositionDescription description, 
+        IEnumerable<DepartmentPosition> departmentPositions)
     {
         Id = Guid.NewGuid();
         Name = name;
         Description = description;
-        _departments = departments.ToList();
+        _departmentPositions = departmentPositions.ToList();
     }
     
     public Guid Id { get; private set; }
@@ -25,9 +28,13 @@ public class Position
     public DateTime CreatedAt { get; private set; }
     
     public DateTime UpdatedAt { get; private set; }
+    public IReadOnlyCollection<DepartmentPosition> DepartmentPositions => _departmentPositions;
 
-    public static Result<Position> CreatePosition(PositionName name, PositionDescription description, IEnumerable<Department> departments)
+    public static Result<Position> CreatePosition(
+        PositionName name, 
+        PositionDescription description, 
+        IEnumerable<DepartmentPosition> departmentPositions)
     {
-        return new Position(name, description, departments);
+        return new Position(name, description, departmentPositions);
     }
 }
